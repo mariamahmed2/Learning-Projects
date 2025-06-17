@@ -42,7 +42,6 @@ class DecisionTreeClassifier:
 
         feature_indices = np.random.choice(num_features, self.n_features, replace=False)
 
-        # Find the best split
         best_feat, best_thresh = self._best_split(X, y, feature_indices)
 
         # Create child nodes
@@ -109,18 +108,14 @@ def accuracy(y_true, y_pred):
     return np.mean(y_true == y_pred)
 
 if __name__ == '__main__':
-    # Load dataset
     data = datasets.load_breast_cancer()
     X, y = data.data, data.target
 
-    # Train-test split
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=1234)
 
-    # Train decision tree
     clf = DecisionTreeClassifier(max_depth=10)
     clf.fit(X_train, y_train)
 
-    # Predict and evaluate
     y_pred = clf.predict(X_test)
     print(f'Accuracy: {accuracy(y_test, y_pred):.4f}')
 
